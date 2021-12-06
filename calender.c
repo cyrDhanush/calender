@@ -10,32 +10,10 @@ int daysinyear(int day, int month, int year)
 		days=0;
 		if(j==year) limit=month;
 		else limit=12;
-		printf("limit %d\n", limit);
+		//printf("limit %d\n", limit);
 		for(i=1;i<=limit;i++)
 		{
-		/*	switch(i)
-			{
-			case 1:
-			case 3:
-			case 5:
-			case 7:
-			case 8:
-			case 10:
-			case 12:
-				day+=31;
-				break;
-			case 4:
-			case 6:
-			case 9:
-			case 11:
-			
-				day+=30;
-				break;
-			case 2:
-				if(j%4==0) days+=29;    // leap year calculation
-				else days+=28;
-				break;
-			}		*/
+		
 				
 			if(i<8 && i!=2)      // upto august
 			{
@@ -53,9 +31,9 @@ int daysinyear(int day, int month, int year)
 				if((j%4!=0)||(j%100==0&&j%400!=0)) days+=28;    // leap year calculation
 				else days+=29;
 			}    
-			printf("i: %d, days: %d\n",i,days);
+			//printf("i: %d, days: %d\n",i,days);
 		}
-		printf("j: %d, days: %d yearday: %d\n",j,days, yearday);
+		//printf("j: %d, days: %d yearday: %d\n",j,days, yearday);
 		yearday+=days;
 	
 	}
@@ -70,13 +48,11 @@ void select(int day, int month, int year)
 	else if(day==0) calculate(year, month);
 	else calculate(year,month,day);*/
 	long int totaldays=daysinyear(day, month,year);
-	printf("%d\n", totaldays);
-	char days[][15]={"Sunday", "Monday", "Tuesday", "Wednesday", "Thrusday", "Friday", "Saturday"};
-	printf("%s\n", days[(totaldays%7)-1]);
+	char days[][15]={"Saturday","Sunday", "Monday", "Tuesday", "Wednesday", "Thrusday", "Friday"}; int dayorder=totaldays%7;
+	printf("%d\n", dayorder);
+	printf("%s\n", days[dayorder]);
 }
-void calculate(int year, int month){
-	
-}
+
 int main()
 {
 	int day,month,year;
