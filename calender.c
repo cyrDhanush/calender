@@ -1,7 +1,7 @@
 #include<stdio.h>
 int daysinyear(int day, int month, int year)
 {
-	int days=0, yearday=0, limit, i, j; month-=1; day-=1;
+	long int days=0, yearday=0, limit, i, j; month-=1; day-=1;
 	
 	
 	
@@ -9,10 +9,34 @@ int daysinyear(int day, int month, int year)
 	{
 		days=0;
 		if(j==year) limit=month;
-		else limit=12-1;
+		else limit=12;
 		printf("limit %d\n", limit);
 		for(i=1;i<=limit;i++)
 		{
+		/*	switch(i)
+			{
+			case 1:
+			case 3:
+			case 5:
+			case 7:
+			case 8:
+			case 10:
+			case 12:
+				day+=31;
+				break;
+			case 4:
+			case 6:
+			case 9:
+			case 11:
+			
+				day+=30;
+				break;
+			case 2:
+				if(j%4==0) days+=29;    // leap year calculation
+				else days+=28;
+				break;
+			}		*/
+				
 			if(i<8 && i!=2)      // upto august
 			{
 				if(i%2==0) days+=30;
@@ -26,9 +50,9 @@ int daysinyear(int day, int month, int year)
 			}
 			else if(i==2)
 			{
-				if(j%4==0) days+=29;    // leap year calculation
-				else days+=28;
-			}
+				if((j%4!=0)||(j%100==0&&j%400!=0)) days+=28;    // leap year calculation
+				else days+=29;
+			}    
 			printf("i: %d, days: %d\n",i,days);
 		}
 		printf("j: %d, days: %d yearday: %d\n",j,days, yearday);
@@ -45,7 +69,7 @@ void select(int day, int month, int year)
 	/*if(month==0 && day==0) calculate(year);
 	else if(day==0) calculate(year, month);
 	else calculate(year,month,day);*/
-	int totaldays=daysinyear(day, month,year);
+	long int totaldays=daysinyear(day, month,year);
 	printf("%d\n", totaldays);
 	char days[][15]={"Sunday", "Monday", "Tuesday", "Wednesday", "Thrusday", "Friday", "Saturday"};
 	printf("%s\n", days[(totaldays%7)-1]);
