@@ -45,8 +45,8 @@ int daysinyear(int day, int month, int year)
 		yearday+=days;
 	
 	}
-	
-	return (yearday+day);
+	int dayorder=(yearday+day)%7;
+	return (dayorder);
 }
 
 
@@ -55,22 +55,24 @@ void select(int day, int month, int year)
 	/*if(month==0 && day==0) calculate(year);
 	else if(day==0) calculate(year, month);
 	else calculate(year,month,day);*/
-	long int totaldays=daysinyear(day, month,year);
-	char days[][15]={"Saturday","Sunday", "Monday", "Tuesday", "Wednesday", "Thrusday", "Friday"}; int dayorder=totaldays%7;
-	//printf("%d\n", dayorder);
+	long int dayorder=daysinyear(day, month,year);
+	char days[][15]={"Saturday","Sunday", "Monday", "Tuesday", "Wednesday", "Thrusday", "Friday"}; 
 	printf("\n%s\n\n", days[dayorder]);
 }
 
 int main()
 {
 	int day,month,year;
-	/*while(1){
+	while(1){
 	
 	printf("Day: "); scanf("%d", &day);
 	printf("Month: "); scanf("%d", &month);
 	printf("Year: "); scanf("%d", &year);
-	select(day,month,year); }*/
 	
-	select(31,5,2004);
+	if(day<=31 && month <=12) select(day,month,year);
+	else printf(":::::::: Enter the proper date ::::::::\n");
+	 }
+	
+
 	return 0;
 }
