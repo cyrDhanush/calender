@@ -2,10 +2,10 @@
 int daysinyear(int day, int month, int year)
 {
 	long int days=0, yearday=0, limit, i, j; month-=1; day-=1;
+	int starting, end;
 	
 	
-	
-	for(j=2000; j<=year; j++)
+	for(j=5; j<=year; j++)
 	{
 		days=0;
 		if(j==year) limit=month;
@@ -49,8 +49,8 @@ void select(int day, int month, int year)
 	else calculate(year,month,day);*/
 	long int totaldays=daysinyear(day, month,year);
 	char days[][15]={"Saturday","Sunday", "Monday", "Tuesday", "Wednesday", "Thrusday", "Friday"}; int dayorder=totaldays%7;
-	printf("%d\n", dayorder);
-	printf("%s\n", days[dayorder]);
+	//printf("%d\n", dayorder);
+	printf("\n%s\n\n", days[dayorder]);
 }
 
 int main()
