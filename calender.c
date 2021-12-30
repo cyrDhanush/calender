@@ -69,7 +69,7 @@ int main()
 	printf("Month: "); scanf("%d", &month);
 	printf("Year: "); scanf("%d", &year);
 	
-	if(day<=31 && month <=12) select(day,month,year);
+	if(day<=31 && month <=12 && year>=1) select(day,month,year);
 	else printf(":::::::: Enter the proper date ::::::::\n");
 	 }
 	
