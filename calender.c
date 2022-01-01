@@ -1,5 +1,6 @@
 #include<stdio.h>
-int daysinyear(int day, int month, int year)
+#include<string.h>
+int calculate(int day, int month, int year)
 {
 	long int days=0, yearday=0, limit, i, j; month-=1; day-=1;
 	int starting, end;
@@ -18,22 +19,7 @@ int daysinyear(int day, int month, int year)
 			{
 			
 					
-				if(i<8 && i!=2)      // upto august
-				{
-					if(i%2==0) days+=30;
-					
-					else days+=31;
-				}
-				else if(i!=2 && i>=8){	// after august
-					if(i%2==0) days+=31;
-					
-					else days+=30;
-				}
-				else if(i==2)
-				{
-					if((j%4!=0)||(j%100==0&&j%400!=0)) days+=28;    // leap year calculation
-					else days+=29;
-				}    
+				days=daycounter(i,j);
 				//printf("i: %d, days: %d\n",i,days);
 			}
 		}
@@ -49,15 +35,52 @@ int daysinyear(int day, int month, int year)
 	return (dayorder);
 }
 
+const char* calculatemonth(int month, int year)
+{
+	char string[10000];
+	
+	
+	return string; 
+}
+int daycounter(int month, int year)
+{
+	int i=month,j=year,days;
+	if(i<8 && i!=2)      // upto august
+				{
+					if(i%2==0) days=30;
+					
+					else days=31;
+				}
+				else if(i!=2 && i>=8){	// after august
+					if(i%2==0) days=31;
+					
+					else days+=30;
+				}
+				else if(i==2)
+				{
+					if((j%4!=0)||(j%100==0&&j%400!=0)) days=28;    // leap year calculation
+					else days=29;
+				} 
+		return days;
+}
 
+const char* calculateyear(int year)
+{
+	char yearstring[10000];
+	return yearstring;
+}
 void select(int day, int month, int year)
 {
-	/*if(month==0 && day==0) calculate(year);
-	else if(day==0) calculate(year, month);
-	else calculate(year,month,day);*/
-	long int dayorder=daysinyear(day, month,year);
-	char days[][15]={"Saturday","Sunday", "Monday", "Tuesday", "Wednesday", "Thrusday", "Friday"}; 
-	printf("\n%s\n\n", days[dayorder]);
+	int dayorder=0;
+	if(month==0 && day==0) printf("%s",calculateyear(year));  //year
+	else if(day==0) printf("%s",calculatemonth(month, year)); //month
+	else                                                 //day
+	{
+		dayorder=calculate(day, month,year);
+		char days[][15]={"Saturday","Sunday", "Monday", "Tuesday", "Wednesday", "Thrusday", "Friday"}; 
+		printf("\n%s\n", days[dayorder]);
+	}
+	
 }
 
 int main()
@@ -65,7 +88,7 @@ int main()
 	int day,month,year;
 	while(1){
 	
-	printf("Day: "); scanf("%d", &day);
+	printf("\nDay: "); scanf("%d", &day);
 	printf("Month: "); scanf("%d", &month);
 	printf("Year: "); scanf("%d", &year);
 	
