@@ -19,19 +19,35 @@ int calculate(int day, int month, int year)
 			{
 			
 					
-				days=daycounter(i,j);
-				//printf("i: %d, days: %d\n",i,days);
+				if(i<8 && i!=2)      // upto august
+				{
+					if(i%2==0) days+=30;
+					
+					else days+=31;
+				}
+				else if(i!=2 && i>=8){	// after august
+					if(i%2==0) days+=31;
+					
+					else days+=30;
+				}
+				else if(i==2)
+				{
+					if((j%4!=0)||(j%100==0&&j%400!=0)) days+=28;    // leap year calculation
+					else days+=29;
+				}    
 			}
 		}
-		//printf("j: %d, days: %d yearday: %d\n",j,days, yearday);
+		
 		else {
 			if((j%4!=0)||(j%100==0&&j%400!=0)) days+=365;    // leap year calculation
 					else days+=366;
 		}
+	//	printf("j: %d, days: %d yearday: %d\n",j,days, yearday);
 		yearday+=days;
 	
 	}
 	int dayorder=(yearday+day)%7;
+	//printf("days: %d", yearday);
 	return (dayorder);
 }
 
@@ -39,8 +55,10 @@ int calculate(int day, int month, int year)
 const char* calculatemonth(int month, int year)
 {
 	char string[10000];
+	strcpy(string,"");
 	strcat(string,"\n");
 	char monthname[12][20]={"January","February","March","April","May","June","July","August","September","October","November","December"};
+	strcat(string,"\t\t    ");
 	strcat(string,monthname[month-1]);
 	strcat(string,"  ");
 	char yearstr[10];
@@ -55,7 +73,6 @@ const char* calculatemonth(int month, int year)
 		strcat(string,"\t");
 	}
 	int margin=spacereq;
-	printf("%d %d %d", days, month, year);
 	for(i=1;i<=days;i++)
 	{
 		char day[10];
@@ -68,47 +85,46 @@ const char* calculatemonth(int month, int year)
 		}margin++;
 	}
 	strcat(string,"\n");
-	
 	return string; 
 }
 int daycounter(int month, int year)
 {
+	
 	int i=month,j=year,days;
 	if(i<8 && i!=2)      // upto august
 	{
 		if(i%2==0) days=30;
 		
 		else days=31;
-		printf("sss");
 	}
 	else if(i!=2 && i>=8){	// after august
 		if(i%2==0) days=31;
 		
-		else days+=30;
-		printf("sss2");
+		else days=30;
 	}
 	else if(i==2)
 	{
 		if((j%4!=0)||(j%100==0&&j%400!=0)) days=28;    // leap year calculation
 		else days=29;
-		printf("sss3");
 	} 
 	return days;
 }
 
 void calculateyear(int year)
 {
-	char yearstring[1000000]; int i=0;
+	int i;
 	for(i=1;i<=12;i++)
 	{
-		printf("%s\n",calculatemonth(i,year),i,year);
+		printf("%s\n", calculatemonth(i,year));
 	}
+	
+	
 }
 void select(int day, int month, int year)
 {
 	int dayorder=0;
 	if(month==0 && day==0) calculateyear(year);  //year
-	else if(day==0) printf("%s",calculatemonth(month, year)); //month
+	else if(day==0 && month!=0) printf("%s",calculatemonth(month, year)); //month
 	else                                                 //day
 	{
 		dayorder=calculate(day, month, year);
