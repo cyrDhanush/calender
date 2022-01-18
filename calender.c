@@ -2,6 +2,7 @@
 #include<string.h>
 int calculate(int day, int month, int year)
 {
+	
 	long int days=0, yearday=0, limit, i, j; month-=1; day-=1;
 	int starting, end;
 	
@@ -124,12 +125,16 @@ void select(int day, int month, int year)
 {
 	int dayorder=0;
 	if(month==0 && day==0){ calculateyear(year); printf("\n"); system("pause"); system("cls");  } //year
-	else if(day==0 && month!=0) {calculatemonth(month, year); printf("\n"); system("pause"); system("cls"); }//month
-	else                                                 //day
+	else if(day==0 && month!=0 && year!=0) {calculatemonth(month, year); printf("\n"); system("pause"); system("cls"); }//month
+	else if(day>=1 && month>=1 && year>=5)                                                //day
 	{
 		dayorder=calculate(day, month, year);
 		char days[][15]={"Saturday","Sunday", "Monday", "Tuesday", "Wednesday", "Thrusday", "Friday"}; 
 		printf("\n%s\n\n", days[dayorder]); system("pause"); system("cls");
+	}
+	else
+	{
+		printf("\nEnter Proper Date\n"); system("pause"); system("cls");
 	}
 	
 }
@@ -139,7 +144,7 @@ int main()
 	int day,month,year;
 	while(1){
 	
-	printf("\nDay: "); scanf("%d", &day);
+	printf("Day: "); scanf("%d", &day);
 	printf("Month: "); scanf("%d", &month);
 	printf("Year: "); scanf("%d", &year);
 	
