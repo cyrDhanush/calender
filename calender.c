@@ -52,7 +52,7 @@ int calculate(int day, int month, int year)
 }
 
 
-const char* calculatemonth(int month, int year)
+void calculatemonth(int month, int year)
 {
 	char string[10000];
 	strcpy(string,"");
@@ -85,7 +85,7 @@ const char* calculatemonth(int month, int year)
 		}margin++;
 	}
 	strcat(string,"\n");
-	return string; 
+	printf("%s", string) ;
 }
 int daycounter(int month, int year)
 {
@@ -115,7 +115,7 @@ void calculateyear(int year)
 	int i;
 	for(i=1;i<=12;i++)
 	{
-		printf("%s\n", calculatemonth(i,year));
+		calculatemonth(i,year);
 	}
 	
 	
@@ -123,13 +123,13 @@ void calculateyear(int year)
 void select(int day, int month, int year)
 {
 	int dayorder=0;
-	if(month==0 && day==0) calculateyear(year);  //year
-	else if(day==0 && month!=0) printf("%s",calculatemonth(month, year)); //month
+	if(month==0 && day==0){ calculateyear(year); printf("\n"); system("pause"); system("cls");  } //year
+	else if(day==0 && month!=0) {calculatemonth(month, year); printf("\n"); system("pause"); system("cls"); }//month
 	else                                                 //day
 	{
 		dayorder=calculate(day, month, year);
 		char days[][15]={"Saturday","Sunday", "Monday", "Tuesday", "Wednesday", "Thrusday", "Friday"}; 
-		printf("\n%s\n", days[dayorder]);
+		printf("\n%s\n\n", days[dayorder]); system("pause"); system("cls");
 	}
 	
 }
