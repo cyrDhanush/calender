@@ -134,7 +134,7 @@ void select(int day, int month, int year)
 	}
 	else
 	{
-		printf("\nEnter Proper Date\n"); system("pause"); system("cls");
+		printf("\n:::::::: Enter the proper date ::::::::\n"); system("pause"); system("cls");
 	}
 	
 }
@@ -152,7 +152,7 @@ int main()
 	
 	if(day<=31 && month<=12 && year>=1) select(day,month,year);
 	
-	else printf(":::::::: Enter the proper date ::::::::\n");
+	else {printf(":::::::: Enter the proper date ::::::::\n");system("pause"); system("cls");}
 	 }
 	
 	return 0;
