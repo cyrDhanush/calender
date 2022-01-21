@@ -49,44 +49,45 @@ int calculate(int day, int month, int year)
 	}
 	int dayorder=(yearday+day)%7;
 	//printf("days: %d", yearday);
+	
 	return (dayorder);
 }
 
 
 void calculatemonth(int month, int year)
 {
+	
 	char string[10000];
 	strcpy(string,"");
-	strcat(string,"\n");
+	printf("\n");
+	printf("\t===================================================\n");
 	char monthname[12][20]={"January","February","March","April","May","June","July","August","September","October","November","December"};
-	strcat(string,"\t\t    ");
-	strcat(string,monthname[month-1]);
-	strcat(string,"  ");
-	char yearstr[10];
-	itoa(year,yearstr,10);
-	strcat(string, yearstr);
-	strcat(string, " \n\n");
-	strcat(string,"Sun\tMon\tTue\tWed\tThu\tFri\tSat\n\n");
+	printf("\t\t    ");
+	printf("\t  %s",monthname[month-1]);
+	printf("  ");
+	printf("%d\n", year);
+	printf("\t===================================================\n");
+	printf(" \n");
+	printf("%s","\tSun\tMon\tTue\tWed\tThu\tFri\tSat\n\n");
 	int spacereq=calculate(1,month,year),i, days=daycounter(month,year);
 	if (spacereq==0) spacereq=7;
 	for(i=1;i<spacereq;i++)
 	{
-		strcat(string,"\t");
+		printf("\t");
 	}
+	printf("\t");
 	int margin=spacereq;
 	for(i=1;i<=days;i++)
 	{
-		char day[10];
-		itoa(i,day,10);
-		strcat(string,day);
-		strcat(string,"\t");
+		printf("%d",i);
+		printf("\t");
 		if(margin==7){
-			strcat(string,"\n\n");
+			printf("\n\n\t");
 			margin=0;
 		}margin++;
 	}
-	strcat(string,"\n");
-	printf("%s", string) ;
+	printf("\n\n");
+	printf("\t===================================================\n\n\n");
 }
 int daycounter(int month, int year)
 {
@@ -128,9 +129,13 @@ void select(int day, int month, int year)
 	else if(day==0 && month!=0 && year!=0) {calculatemonth(month, year); printf("\n"); system("pause"); system("cls"); }//month
 	else if(day>=1 && month>=1 && year>=5)                                                //day
 	{
+		system("cls");
 		dayorder=calculate(day, month, year);
 		char days[][15]={"Saturday","Sunday", "Monday", "Tuesday", "Wednesday", "Thrusday", "Friday"}; 
-		printf("\n%s\n\n", days[dayorder]); system("pause"); system("cls");
+		printf("\n\n=======================================\n\n");
+		printf("  The day of %d - %d - %d is %s \n\n",day,month,year, days[dayorder]);
+		printf("=======================================\n\n");
+		system("pause"); system("cls");
 	}
 	else
 	{
@@ -138,22 +143,51 @@ void select(int day, int month, int year)
 	}
 	
 }
+void instructions()
+{
+	printf("INSTRUCTIONS: \n\n");
+	printf("    * Enter a valid date to show the DAY\n\n");
+	printf("    * Enter a ZERO in day and a valid month and year to show MONTH \n\n");
+	printf("    * Enter ZERO in day and month. \n      And enter a valid year to show the whole YEAR\n\n");
+	printf("Example:\n\n");
+	printf("To show day: \n\n");
+	printf("   Day: xx\n   Month: y\n   Year: zzzz\n\n");
+	printf("To show month: \n\n");
+	printf("   Day: 0\n   Month: y\n   Year: zzzz\n\n");
+	printf("To show year: \n\n");
+	printf("   Day: 0\n   Month: 0\n   Year: zzzz\n\n");
+	
+}
 
 int main()
 {
-	int day,month,year;
+	int day,month,year; int display=0;
+	if(display==0)
+	{
+		printf("==========================================================\n\n");
+		printf("=======================  CALENDER  =======================\n\n");
+		printf("==========================================================\n\n");
+		display=1;
+		instructions();
+		system("pause"); system("cls");
+	}
+	if(display==1){
+	
 	while(1){
 	
-	printf("Day: "); scanf("%d", &day);
-	printf("Month: "); scanf("%d", &month);
-	printf("Year: "); scanf("%d", &year);
-	
+	printf("\n\n   ==================\n\n");
+	printf("   Day   : "); scanf("%d", &day);
+	printf("   Month : "); scanf("%d", &month);
+	printf("   Year  : "); scanf("%d", &year);
+	system("cls");
 	//printf("%d",daycounter(month,year));
 	
-	if(day<=31 && month<=12 && year>=1) select(day,month,year);
+	if(day<=31 && month<=12 && year>=5) select(day,month,year);
 	
 	else {printf(":::::::: Enter the proper date ::::::::\n");system("pause"); system("cls");}
 	 }
+	
+	}
 	
 	return 0;
 }
