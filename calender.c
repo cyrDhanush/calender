@@ -14,8 +14,6 @@ int calculate(int day, int month, int year)
 		{
 			
 			limit=month;
-			
-			//printf("limit %d\n", limit);
 			for(i=1;i<=limit;i++)
 			{
 			
@@ -43,12 +41,11 @@ int calculate(int day, int month, int year)
 			if((j%4!=0)||(j%100==0&&j%400!=0)) days+=365;    // leap year calculation
 					else days+=366;
 		}
-	//	printf("j: %d, days: %d yearday: %d\n",j,days, yearday);
+	
 		yearday+=days;
 	
 	}
 	int dayorder=(yearday+day)%7;
-	//printf("days: %d", yearday);
 	
 	return (dayorder);
 }
@@ -147,7 +144,7 @@ void instructions()
 {
 	printf("INSTRUCTIONS: \n\n");
 	printf("    * Enter a valid date to show the DAY\n\n");
-	printf("    * Enter a ZERO in day and a valid month and year to show MONTH \n\n");
+	printf("    * Enter a ZERO in day and a valid month \n      and year to show MONTH \n\n");
 	printf("    * Enter ZERO in day and month. \n      And enter a valid year to show the whole YEAR\n\n");
 	printf("Example:\n\n");
 	printf("To show day: \n\n");
@@ -155,7 +152,7 @@ void instructions()
 	printf("To show month: \n\n");
 	printf("   Day: 0\n   Month: y\n   Year: zzzz\n\n");
 	printf("To show year: \n\n");
-	printf("   Day: 0\n   Month: 0\n   Year: zzzz\n\n");
+	printf("   Day: 0\n   Month: 0\n   Year: zzzz\n\n"); 
 	
 }
 
@@ -180,7 +177,6 @@ int main()
 	printf("   Month : "); scanf("%d", &month);
 	printf("   Year  : "); scanf("%d", &year);
 	system("cls");
-	//printf("%d",daycounter(month,year));
 	
 	if(day<=31 && month<=12 && year>=5) select(day,month,year);
 	
