@@ -1,6 +1,6 @@
 #include<stdio.h>
 #include<string.h>
-int calculate(int day, int month, int year)
+int calculate(int day, int month, int year, int option)
 {
 	
 	long int days=0, yearday=0, limit, i, j; month-=1; day-=1;
@@ -46,8 +46,9 @@ int calculate(int day, int month, int year)
 	
 	}
 	int dayorder=(yearday+day)%7;
-	
+	if(option==0)
 	return (dayorder);
+	else return (yearday+day);
 }
 
 
@@ -66,7 +67,7 @@ void calculatemonth(int month, int year)
 	printf("\t===================================================\n");
 	printf(" \n");
 	printf("%s","\tSun\tMon\tTue\tWed\tThu\tFri\tSat\n\n");
-	int spacereq=calculate(1,month,year),i, days=daycounter(month,year);
+	int spacereq=calculate(1,month,year,0),i, days=daycounter(month,year);
 	if (spacereq==0) spacereq=7;
 	for(i=1;i<spacereq;i++)
 	{
@@ -127,7 +128,7 @@ void select(int day, int month, int year)
 	else if(day>=1 && month>=1 && year>=5)                                                //day
 	{
 		system("cls");
-		dayorder=calculate(day, month, year);
+		dayorder=calculate(day, month, year,0);
 		char days[][15]={"Saturday","Sunday", "Monday", "Tuesday", "Wednesday", "Thrusday", "Friday"}; 
 		printf("\n\n=======================================\n\n");
 		printf("  The day of %d - %d - %d is %s \n\n",day,month,year, days[dayorder]);
@@ -143,47 +144,113 @@ void select(int day, int month, int year)
 void instructions()
 {
 	printf("INSTRUCTIONS: \n\n");
-	printf("    * Enter a valid date to show the DAY\n\n");
-	printf("    * Enter a ZERO in day and a valid month \n      and year to show MONTH \n\n");
-	printf("    * Enter ZERO in day and month. \n      And enter a valid year to show the whole YEAR\n\n");
-	printf("Example:\n\n");
-	printf("To show day: \n\n");
-	printf("   Day: xx\n   Month: y\n   Year: zzzz\n\n");
-	printf("To show month: \n\n");
-	printf("   Day: 0\n   Month: y\n   Year: zzzz\n\n");
-	printf("To show year: \n\n");
-	printf("   Day: 0\n   Month: 0\n   Year: zzzz\n\n"); 
+	printf("    * Enter a valid date to show the DAY or MONTH or YEAR\n\n");
+	printf("    * With option 4, You can calculate the Number of days\n      between two dates\n\n");// for day counter
 	
+	
+}
+
+int menu()
+{
+	system("cls");
+		printf("==========================================================\n\n");
+		printf("=======================  CALENDER  =======================\n\n");
+		printf("==========================================================\n\n");
+	int choice;
+	int day=0, month=0, year=0;
+	printf(" 1. Show Day\n\n 2. Show Month\n\n 3. Show Year\n\n 4. Show Day Difference\n\n 5. Exit\n\nEnter Your Choice: "); scanf("%d", &choice); system("cls");
+	switch(choice)
+	{
+		case 1:
+			printf("\n\n=====================\n\n");
+			printf("   Day   : "); scanf("%d", &day);
+			printf("   Month : "); scanf("%d", &month);
+			printf("   Year  : "); scanf("%d", &year);
+			system("cls");
+			if(day>0 && day<=31 && month>=1 && month<=12 && year>=5) select(day,month,year);
+			else {printf(":::::::: Enter the proper date ::::::::\n");system("pause"); }return ; 
+			break;
+		case 2:
+			printf("\n\n=====================\n\n");
+		 	printf("   Month : "); scanf("%d", &month);
+		    printf("   Year  : "); scanf("%d", &year);
+		    system("cls");
+		    if(month>=1 && month<=12 && year>=5) select(0 ,month ,year);
+			else {printf(":::::::: Enter the proper date ::::::::\n");system("pause");};
+			return ;
+		    break;
+		case 3:
+			printf("\n\n=====================\n\n");
+			printf("   Year  : "); scanf("%d", &year); system("cls");
+			if(year>=5)select(0,0,year);
+			else{printf(":::::::: Enter the proper date ::::::::\n");system("pause");
+			}
+			break;
+		case 4:
+			system("cls");
+			int day1=0, day2=0,i; int date1[3], date2[3];
+			for(i=0;i<2;i++){
+			printf("\n\n=====================\n\n");
+			printf("Enter the date of %d\n\n", i+1);
+			printf("   Day   : "); scanf("%d", &day);
+			printf("   Month : "); scanf("%d", &month);
+			printf("   Year  : "); scanf("%d", &year);
+			system("cls");
+			if(day>0 && day<=31 && month>=1 && month<=12 && year>=5 ){
+				if(i==0){
+					date1[0]=day;
+					date1[1]=month;
+					date1[2]=year;
+					day1=calculate(day,month,year,1);
+				} 
+				else if(i==1) {
+					date2[0]=day;
+					date2[1]=month;
+					date2[2]=year;
+					day2=calculate(day,month,year,1);
+				}
+			} 
+			else {printf(":::::::: Enter the proper date ::::::::\n");system("pause"); return ;}
+			}
+			system("cls");
+			int pday=(day1>day2?day1-day2:day2-day1);
+			printf("\n\n===============================================================\n\n");
+			printf("     There are %d days between %d - %d - %d and %d - %d - %d", pday, date1[0], date1[1], date1[2], date2[0], date2[1], date2[2]);
+			printf("\n\nAlternate Units: \n\n");
+			printf("     %d Weeks and %d Days\n", pday/7, pday%7);
+			printf("     %d Hours\n", pday*24);
+			printf("     %d Minutes\n", pday*24*60);
+			printf("\n\n===============================================================\n\n");
+			system("pause"); system("cls");
+			break;
+		case 5:
+			 return 5665;
+		default:
+			printf("Enter the Proper Option");
+			return ;
+			
+	}
 }
 
 int main()
 {
-	int day,month,year; int display=0;
-	if(display==0)
-	{
+	int day,month,year;
+	
 		printf("==========================================================\n\n");
 		printf("=======================  CALENDER  =======================\n\n");
 		printf("==========================================================\n\n");
-		display=1;
 		instructions();
 		system("pause"); system("cls");
-	}
-	if(display==1){
+	
 	
 	while(1){
+		
+		int status;
+		status=menu();
+		if(status==5665) return 0; 
 	
-	printf("\n\n   ==================\n\n");
-	printf("   Day   : "); scanf("%d", &day);
-	printf("   Month : "); scanf("%d", &month);
-	printf("   Year  : "); scanf("%d", &year);
-	system("cls");
+
 	
-	if(day<=31 && month<=12 && year>=5) select(day,month,year);
+}
 	
-	else {printf(":::::::: Enter the proper date ::::::::\n");system("pause"); system("cls");}
-	 }
-	
-	}
-	
-	return 0;
 }
